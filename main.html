@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+   <body>
+      <input type="file" id="input" accept=".xls,.xlsx,.ods">
+      <pre id="result"></pre>
+   </body>
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Give clean result</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+      <script>
+        document.getElementById('input').addEventListener('change', function(e) {
+          var file = e.target.files[0];
+          // input canceled, return
+          if (!file) return;
+          
+          var FR = new FileReader();
+          FR.onload = function(e) {
+            var data = new Uint8Array(e.target.result);
+            var workbook = XLSX.read(data, {type: 'array'});
+            var firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            var result = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            var jArray = JSON.parse(JSON.stringify(result, null, 2));
+         
+            var newArr = [];
+            for(var i = 0; i < jArray.length; i++)
+            {
+              newArr = newArr.concat(jArray[i]);
+            }
+         
+            //Find Strings that appers multiple times
+            function duplicateStr(arr) {
+              let res = [];
+              for (let i = 0; i < arr.length; i++) {
+                for (let j = i + 1; j < arr.length; j++) {
+                  if (arr[i] === arr[j]) {
+                    res.push(arr[i]);
+                  }
+                }
+              }
+              if (res.length == 0) res.push(-1);
+              return res;
+            }
+         
+            function removeArrDuplicates(array) {
+              const uniqueArr = [];
+              for (let i = 0; i < array.length; i++) {
+                if (uniqueArr.indexOf(array[i]) === -1) {
+                  uniqueArr.push(array[i]);
+                }
+              }
+              return uniqueArr;
+            }
+         
+            console.log("Duplicates---->");
+            var finalResult = removeArrDuplicates(duplicateStr(newArr));
+            console.log(finalResult);
+             // data preview
+            var output = document.getElementById('result');
+            output.innerHTML = JSON.stringify(finalResult, null, 2);
+          };
+          FR.readAsArrayBuffer(file);
+         });
+      </script>
+   </head>
+</html>
