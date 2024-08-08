@@ -31,37 +31,72 @@
             {
               newArr = newArr.concat(jArray[i]);
             }
+
+            const elementTracker = {};
+            //const duplicates = [];
+            const count = {};
+            newArr.forEach(item => {
+              if (elementTracker[item]) {
+                //duplicates.push(item);
+                count[item] += 1;
+              } else {
+                elementTracker[item] = true;
+                count[item] = 1;
+              }
+            });
+
+            for (var key in count) {
+              console.log(key, count[key]);
+              if (count[key] < 2) {
+                delete count[key];
+              }
+            }
+            
+
+            // data preview
+            var output = document.getElementById('result');
+            output.innerHTML = JSON.stringify(count, null, 2);
+
          
             //Find Strings that appers multiple times
-            function duplicateStr(arr) {
-              let res = [];
-              for (let i = 0; i < arr.length; i++) {
-                for (let j = i + 1; j < arr.length; j++) {
-                  if (arr[i] === arr[j]) {
-                    res.push(arr[i]);
-                  }
-                }
-              }
-              if (res.length == 0) res.push(-1);
-              return res;
-            }
+            // function duplicateStr(arr) {
+            //   let res = [];
+            //   for (let i = 0; i < arr.length; i++) {
+            //     for (let j = i + 1; j < arr.length; j++) {
+            //       if (arr[i] === arr[j]) {
+            //         res.push(arr[i]);
+            //       }
+            //     }
+            //   }
+            //   if (res.length == 0) res.push(-1);
+            //   return res;
+            // }
+            // var duplicateStringsArray = duplicateStr(newArr);
+
          
-            function removeArrDuplicates(array) {
-              const uniqueArr = [];
-              for (let i = 0; i < array.length; i++) {
-                if (uniqueArr.indexOf(array[i]) === -1) {
-                  uniqueArr.push(array[i]);
-                }
-              }
-              return uniqueArr;
-            }
-         
-            console.log("Duplicates---->");
-            var finalResult = removeArrDuplicates(duplicateStr(newArr));
-            console.log(finalResult);
-             // data preview
-            var output = document.getElementById('result');
-            output.innerHTML = JSON.stringify(finalResult, null, 2);
+            // function removeArrDuplicates(array) {
+            //   const uniqueArr = [];
+            //   for (let i = 0; i < array.length; i++) {
+            //     if (uniqueArr.indexOf(array[i]) === -1) {
+            //       uniqueArr.push(array[i]);
+            //     }
+            //   }
+            //   return uniqueArr;
+            // }
+            // var finalResult = removeArrDuplicates(duplicateStringsArray);
+            // console.log(finalResult);
+
+
+            // const count = {};
+            // for (let i = 0; i < duplicateStringsArray.length; i++) {
+            //     let ele = duplicateStringsArray[i];
+            //     if (count[ele]) {
+            //         count[ele] += 1;
+            //     } else {
+            //         count[ele] = 1;
+            //     }
+            // }
+
           };
           FR.readAsArrayBuffer(file);
          });
