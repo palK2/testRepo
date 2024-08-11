@@ -51,11 +51,14 @@
                 delete count[key];
               }
             }
-            
+
+            const sortedCount = Object.fromEntries(
+                Object.entries(count).sort(([,a],[,b]) => b-a)
+            );
 
             // data preview
             var output = document.getElementById('result');
-            output.innerHTML = JSON.stringify(count, null, 2);
+            output.innerHTML = JSON.stringify(sortedCount, null, 2);
 
          
             //Find Strings that appers multiple times
