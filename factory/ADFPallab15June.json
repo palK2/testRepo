@@ -1,0 +1,9 @@
+{
+	"name": "ADFPallab15June",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e8a37ef6-13c8-4e39-bfd1-1257722b309d",
+		"tenantId": "3e4f6c6b-ae25-47f4-8791-e54466c52306"
+	}
+}
