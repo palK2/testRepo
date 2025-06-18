@@ -1,0 +1,9 @@
+{
+	"name": "testDFfifteen",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3ac41c63-48dc-4f32-85a5-81e316907642",
+		"tenantId": "3e4f6c6b-ae25-47f4-8791-e54466c52306"
+	}
+}
